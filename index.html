@@ -15,6 +15,7 @@
     animation: bg 12s ease infinite;
     font-family: 'Segoe UI', sans-serif;
     text-align: center; padding: 25px 20px; overflow-x: hidden;
+    position: relative;
   }
   @keyframes bg {
     0% { background-position: 0% 50%; }
@@ -71,24 +72,102 @@
   @keyframes float {
     to { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
   }
+  
+  /* Interactive Letter */
+  .letter {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Wishes Page */
+  .wishes-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+  }
+  .wishes-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 90%;
+    width: 500px;
+    box-shadow: 0 0 30px rgba(142, 68, 173, 0.7);
+  }
+  #wishes-input {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    margin: 20px 0;
+    border: 2px solid #8e44ad;
+    border-radius: 10px;
+    font-size: 1rem;
+    resize: none;
+  }
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
+  <div class="letter">💌</div>
+  
+  <div class="wishes-page">
+    <div class="close-btn">×</div>
+    <div class="wishes-content">
+      <h2 style="color: #8e44ad;">Write Your Wishes</h2>
+      <textarea id="wishes-input" placeholder="Type your personal message here..."></textarea>
+      <button id="save-wishes">Save Wishes</button>
+    </div>
+  </div>
+ 
   <div class="cake">🎂</div>
   <h1>Happy Birthday</h1>
   <div class="name">Um e Ruman 🤍</div>
   <div class="cake">🎉🎈🎁</div>
  
+  <!-- YOUR BEAUTIFUL WISHES ADDED HERE -->
   <p class="msg">
-    May Allah bless You with every kind of happiness in this world. May you never ever see the face of sadness and pain.. Ameen ❤
+    *Um-e-Ruman*<br>
+    Literally, I’m blessed to have you in my life<br>
+    ....🫂🌷<br><br>
+    I don’t wanna lose you...❤️<br><br>
+    آپکی زندگی کا سب سے زیادہ خوبصورت حصہ ہے دوستی🫂❤️ جب آپکے پاس ایک اچھا اور مخلص دوست ہو❤️🌙<br><br>
+    Dear Um-e-Ruman<br>
+    اگر پوری دنیا بھی تمہارے خلاف ہوگی تب بھی تم مجھے اپنے ساتھ پاؤ گی❤️🌙🌷<br><br>
+    I never want to lose uhuh...🥹<br>
+    Hamesha sy he mery sath rehnaaa...✨<br><br>
+    I am lucky to have a best friend like You..❤
   </p>
+  <!-- END OF YOUR WISHES -->
  
   <p class="from">From Madiha Shahid 😅</p>
  
   <button onclick="playMusic()">🎵 Music Play</button>
  
   <script>
-    // Balloons animation
     const emojis = ['🎈','🎈','🎉','🎊','💖','🌸','🤍'];
     for (let i = 0; i < 14; i++) {
       const b = document.createElement('div');
@@ -100,7 +179,6 @@
       document.body.appendChild(b);
     }
  
-    // Birthday tune
     function playMusic() {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const notes = [
@@ -120,6 +198,30 @@
         osc.start(t); osc.stop(t + dur); t += dur;
       });
     }
+ 
+    const letter = document.querySelector('.letter');
+    const wishesPage = document.querySelector('.wishes-page');
+    const closeBtn = document.querySelector('.close-btn');
+    const saveBtn = document.querySelector('#save-wishes');
+    
+    letter.addEventListener('click', () => {
+      wishesPage.style.display = 'flex';
+    });
+    
+    closeBtn.addEventListener('click', () => {
+      wishesPage.style.display = 'none';
+    });
+    
+    saveBtn.addEventListener('click', () => {
+      alert('Wishes saved!');
+      wishesPage.style.display = 'none';
+    });
+    
+    wishesPage.addEventListener('click', (e) => {
+      if (e.target === wishesPage) {
+        wishesPage.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
